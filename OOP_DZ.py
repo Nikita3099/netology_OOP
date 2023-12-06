@@ -23,6 +23,33 @@ class Student:
             f'Завершенные курсы: {", ".join(self.finished_courses)}'
         )
 
+    def mid_mar(self):
+        total = 0
+        count = 0
+        for i in self.grades.values():
+            for j in i:
+                total += j
+                count += 1
+        return total/count
+
+    def gt(self, other):
+        return self.mid_mar() > other.mid_mar()
+
+    def lt(self, other):
+        return self.mid_mar() < other.mid_mar()
+
+    def ge(self, other):
+        return self.mid_mar() >= other.mid_mar()
+
+    def le(self, other):
+        return self.mid_mar() <= other.mid_mar()
+
+    def eq(self, other):
+        return self.mid_mar() == other.mid_mar()
+
+    def ne(self, other):
+        return self.mid_mar() != other.mid_mar()
+
 class Mentor:
     def __init__(self, name, surname):
         self.name = name
@@ -55,10 +82,35 @@ class Lecturer(Mentor):
             average_grade = 0
         return f'Имя: {self.name}\nФамилия: {self.surname}\nСредняя оценка за лекции: {average_grade:.1f}'
 
-# Пример использования:
+    def mid_mar(self):
+        total = 0
+        count = 0
+        for i in self.grades.values():
+            for j in i:
+                total += j
+                count += 1
+        return total / count
+
+    def gt(self, other):
+        return self.mid_mar() > other.mid_mar()
+
+    def lt(self, other):
+        return self.mid_mar() < other.mid_mar()
+
+    def ge(self, other):
+        return self.mid_mar() >= other.mid_mar()
+
+    def le(self, other):
+        return self.mid_mar() <= other.mid_mar()
+
+    def eq(self, other):
+        return self.mid_mar() == other.mid_mar()
+
+    def ne(self, other):
+        return self.mid_mar() != other.mid_mar()
+
+
 class Reviewer(Mentor):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
@@ -72,8 +124,7 @@ class Reviewer(Mentor):
     def __str__(self):
         return f'Имя: {self.name}\nФамилия: {self.surname}'
 
-# Остальной код остается таким же
-# Создаем объекты классов
+
 student1 = Student('Ruoy', 'Eman', 'your_gender')
 student2 = Student('Alice', 'Smith', 'her_gender')
 
@@ -83,13 +134,10 @@ reviewer2 = Reviewer('Emma', 'Johnson')
 lecturer1 = Lecturer('Michael', 'Brown')
 lecturer2 = Lecturer('Sophia', 'Williams')
 
-# Вызываем методы созданных объектов
-# ... (Методы вызываются, например, так: student1.some_method(), где some_method - метод класса Student)
 
-# Функция для подсчета средней оценки за домашние задания по всем студентам в рамках конкретного курса
 def avg_hw_grade(students, course):
-    total_grades = 5
-    total_students = 2
+    total_grades = 10
+    total_students = 5
     for student in students:
         if course in student.grades:
             total_grades += sum(student.grades[course])
@@ -111,11 +159,11 @@ students_list = [student1, student2]
 lecturers_list = [lecturer1, lecturer2]
 course_name = 'Python'
 
-print(f"Средняя оценка за домашние задания по курсу '{course_name}': {avg_hw_grade(students_list, course_name)}")
-print(f"Средняя оценка за лекции по курсу '{course_name}': {avg_lecture_grade(lecturers_list, course_name)}")
-
 some_student = Student('Ruoy', 'Eman', 'your_gender')
 some_student.courses_in_progress += ['Python']
+
+best_student = Student('NIKI', 'GOODMAN', 'your_gender')
+best_student.courses_in_progress += ['Python']
 
 some_reviewer = Reviewer('Some', 'Buddy')
 some_reviewer.courses_attached += ['Python']
@@ -138,3 +186,7 @@ some_student.grades = {'Python': [10, 9, 10], 'Git': [8, 7, 9]}
 print(some_reviewer)
 print(some_lecturer)
 print(some_student)
+print(f"Средняя оценка за домашние задания по курсу '{course_name}': {avg_hw_grade(students_list, course_name)}")
+print(f"Средняя оценка за лекции по курсу '{course_name}': {avg_lecture_grade(lecturers_list, course_name)}")
+
+
